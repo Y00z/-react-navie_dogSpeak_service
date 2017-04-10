@@ -12,7 +12,7 @@ var UserSchema = new mongoose.Schema({
         unique: true,        //唯一的
         type: String
     },
-    veriftyCode: String,     //验证码
+    verifyCode: String,     //验证码
     verified: {              //是否已经验证了
         type: Boolean,
         default: false
