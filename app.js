@@ -15,7 +15,7 @@ mongoose.connect(dbUrl);
 app.use(cookieParser())
 //提交数据转换对象中间件
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.listen(port);
 console.log("成功启动:" + port)

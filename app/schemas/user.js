@@ -18,15 +18,11 @@ var UserSchema = new mongoose.Schema({
         default: false
     },
     accessToken: String,
-    mickname: String,       //名称
+    nickname: String,       //名称
     gender: String,          //性别
     breed: String,           //品种
     age: String,             //年龄
     avatar: String,          //头像
-    role: {                //用户权限
-        type: Number,
-        default: 0
-    },
     meta: {
         createAt: {
             type: Date,
