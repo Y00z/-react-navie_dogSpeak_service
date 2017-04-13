@@ -16,7 +16,8 @@ module.exports = function (app) {
 //         next()
 //     })
 
-
+    //签名
+    app.post('/api/signature',User.signature)
     //登录
     app.post('/api/u/signup',User.signup)
     //验证码

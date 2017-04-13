@@ -5,6 +5,30 @@ var User = require('../models/user')
 var xss = require('xss')
 var uuid = require('uuid')
 var sms = require('./../service/sms')
+var conf = require('./../../config/conf')
+var rebot = require('./../service/rebot')
+
+exports.signature = function (req, res) {
+    var body = req.body
+    var cloud = body.cloud
+    var token
+    var key
+    //如果cloud是qiniu就说明是走的七牛
+    if (cloud == 'qiniu') {
+        key = uuid.v4() + '.jpeg'
+        token = rebot.getQiniuToken(key)
+    } else {
+        token = rebot.getCloudinary(body)
+    }
+    res.json({
+        success: true,
+        data: {
+            token: token,
+            key: key
+        }
+    })
+    return
+}
 
 exports.signup = function (req, res) {
     var phoneNumber = xss(req.body.phoneNumber)
@@ -105,7 +129,7 @@ exports.update = function (req, res) {
             })
             return;
         } else {    //如果用户提交了这些字段信息
-            var fields = ['avatar','gender','age','nickname','breed']
+            var fields = ['avatar', 'gender', 'age', 'nickname', 'breed']
             //就遍历这些信息，并且把提交的信息都赋值给user
             fields.forEach(function (field) {
                 user[field] = body[field]
