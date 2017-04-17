@@ -31,7 +31,7 @@ exports.signature = function (req, res) {
 }
 
 exports.signup = function (req, res) {
-    var phoneNumber = xss(req.body.phoneNumber)
+    var phoneNumber = req.body.phoneNumber
     if (!phoneNumber) {
         res.json({
             success: false,
@@ -39,7 +39,8 @@ exports.signup = function (req, res) {
         })
         return;
     }
-    phoneNumber = phoneNumber.trim()
+    phoneNumber = xss(phoneNumber.trim())
+    console.log(phoneNumber+"::")
     //通过phoneNumber来查找用户
     User.findOne({phoneNumber: phoneNumber}, function (err, user) {
         if (err) console.log(err)
@@ -78,8 +79,8 @@ exports.signup = function (req, res) {
 
 //验证
 exports.verify = function (req, res) {
-    var phoneNumber = xss(req.body.phoneNumber)
-    var verifyCode = xss(req.body.verifyCode)
+    var phoneNumber = req.body.phoneNumber
+    var verifyCode = req.body.verifyCode
     if (!phoneNumber || !verifyCode) {
         res.json({
             success: false,
@@ -89,6 +90,7 @@ exports.verify = function (req, res) {
     }
     verifyCode = verifyCode.trim()
     phoneNumber = phoneNumber.trim()
+    console.log(phoneNumber+"::" + verifyCode)
     User.findOne({phoneNumber: phoneNumber, verifyCode: verifyCode}, function (err, user) {
         if (!user) {
             res.json({

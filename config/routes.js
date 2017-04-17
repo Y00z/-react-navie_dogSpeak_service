@@ -17,11 +17,11 @@ module.exports = function (app) {
 //     })
 
     //签名
-    app.post('/api/signature',User.signature)
-    //登录
-    app.post('/api/u/signup',User.signup)
-    //验证码
-    app.post('/api/u/verify',User.verify)
+    app.post('/api/signature', User.signature)
+    //登录(接收验证码)
+    app.post('/api/u/signup', User.signup)
+    //验证(登录)
+    app.post('/api/u/verify', User.verify)
     //更新
-    app.post('/api/u/update',User.update)
+    app.post('/api/u/update', User.update)
 }
