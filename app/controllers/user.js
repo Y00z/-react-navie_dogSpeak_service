@@ -15,8 +15,9 @@ exports.signature = function (req, res) {
     var key
     //如果cloud是qiniu就说明是走的七牛
     if (cloud == 'qiniu') {
-        key = uuid.v4() + '.jpeg'
-        token = rebot.getQiniuToken(key)
+        var data = rebot.getQiniuToken(body)
+        key = data.key
+        token = data.token
     } else {
         token = rebot.getCloudinary(body)
     }
@@ -40,7 +41,7 @@ exports.signup = function (req, res) {
         return;
     }
     phoneNumber = xss(phoneNumber.trim())
-    console.log(phoneNumber+"::")
+    console.log(phoneNumber + "::")
     //通过phoneNumber来查找用户
     User.findOne({phoneNumber: phoneNumber}, function (err, user) {
         if (err) console.log(err)
@@ -90,7 +91,7 @@ exports.verify = function (req, res) {
     }
     verifyCode = verifyCode.trim()
     phoneNumber = phoneNumber.trim()
-    console.log(phoneNumber+"::" + verifyCode)
+    console.log(phoneNumber + "::" + verifyCode)
     User.findOne({phoneNumber: phoneNumber, verifyCode: verifyCode}, function (err, user) {
         if (!user) {
             res.json({

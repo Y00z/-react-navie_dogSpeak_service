@@ -5,6 +5,7 @@
 'use strict'
 
 module.exports = {
+    notify:'http://www.baidu.com',
     cloudinary: {
         cloud_name: 'deq99znbe',
         api_key: '132214329484465',
