@@ -2,6 +2,8 @@
  * Created by Yooz on 2017/4/7.
  */
 var User = require('../app/controllers/user')
+var Creation = require('../app/controllers/creation')
+var App = require('./../app/controllers/app')
 
 //接收传进来的app，然后抛出
 module.exports = function (app) {
@@ -24,4 +26,6 @@ module.exports = function (app) {
     app.post('/api/u/verify', User.verify)
     //更新
     app.post('/api/u/update', User.update)
+    //同步视频
+    app.post('/api/u/video', App.hasToken, Creation.video)
 }

@@ -11,7 +11,7 @@ qiniu.conf.ACCESS_KEY = conf.qiniu.Ak
 qiniu.conf.SECRET_KEY = conf.qiniu.SK
 
 //要上传的空间
-bucket = 'tupian'
+// bucket = 'tupian'
 
 //构建上传策略函数
 // function uptoken(bucket, key) {
@@ -23,11 +23,11 @@ exports.getQiniuToken = function (body) {
     var type = body.type
     var key = uuid.v4()
     var options = {
-        persistentNotifyUrl :conf.notify
+        persistentNotifyUrl: conf.notify
     }
     if (type === 'avatar') {
-        var putPolicy = new qiniu.rs.PutPolicy(bucket + ":" + key);
         key += '.jpeg'
+        var putPolicy = new qiniu.rs.PutPolicy("tupian:" + key);
     } else if (type === 'video') {
         key += '.mp4'
         options.scope = 'tupian:' + key
@@ -38,8 +38,8 @@ exports.getQiniuToken = function (body) {
     }
     var token = putPolicy.token();
     return {
-        token :token,
-        key : key
+        token: token,
+        key: key
     }
 }
 
